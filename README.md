@@ -10,7 +10,7 @@ db initialization:
 `flask db init`
 
 db migration:
-`flask db migrate -m "initial commit"'
+`flask db migrate -m "initial commit"`
 
 db upgrate:
 `flask db upgrade`
