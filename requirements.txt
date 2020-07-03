@@ -1,0 +1,13 @@
+flask
+flask_cors
+
+flask_jwt
+flask_jwt_extended
+
+pymysql
+flask_sqlalchemy
+
+flask_script
+flask_migrate
+
+passlib
