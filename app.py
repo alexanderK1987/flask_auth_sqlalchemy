@@ -27,6 +27,7 @@ manager = flask_script.Manager(app)
 migrate = flask_migrate.Migrate(app, db, compare_type=True)
 
 import resources.Auth
+import resources.Sitemap
 
 # hello function
 @app.route('/')
@@ -35,7 +36,8 @@ def root():
 
 if __name__ == '__main__':
     try:
-        app.run(host='0.0.0.0', port=5020, threaded=True)
+        app.run(host='0.0.0.0', port=5000, threaded=True)
+
     except KeyboardInterrupt:
         pass 
 

@@ -17,7 +17,7 @@ class User(db.Model):
     email = db.Column(db.Text)
     
     # activation
-    active = db.Column(db.Integer)
+    active = db.Column(db.Integer, nullable=False, default=0)
 
     @staticmethod
     def generate_hash(password):
