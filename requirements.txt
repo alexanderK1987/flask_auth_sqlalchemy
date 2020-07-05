@@ -6,6 +6,8 @@ flask_jwt_extended
 
 pymysql
 flask_sqlalchemy
+flask_marshmallow
+marshmallow-sqlalchemy
 
 flask_script
 flask_migrate
