@@ -36,8 +36,9 @@ def get_users():
 def rwd_user_by_id(_id):
     try:
         userSchema = UserSchema()
-        q = User.query.get_or_404(_id,
-            description='User with _id=%d does not exists...' % _id)
+        q = User.query.get(_id)
+        if not q:
+            return flask.jsonify({'msg': 'User with _id=%d does not exists...' % _id}), 404
         
         if flask.request.method == 'GET':
             return flask.jsonify(userSchema.dump(q))
@@ -123,8 +124,9 @@ def login():
         if ('username' not in _json) or ('password' not in _json):
             return flask.jsonify({'msg': 'you must provide username and password'}), 400
             
-        q = User.query.filter_by(username=_json['username']).first_or_404(
-             description='User with name %s does not exists...' % _json['username'])
+        q = User.query.filter_by(username=_json['username']).first()
+        if not q:
+             return flask.jsonify({'msg': 'User with name %s does not exists...' % _json['username']}), 404
 
         if not User.verify_hash(_json['password'], q.password):
              return flask.jsonify({'msg': 'wrong credentials'}), 422
@@ -151,8 +153,9 @@ def activate_user(_id):
         if login_user.username != 'admin':
             return flask.jsonify({'msg': 'only admin can activate/deactivate users'}), 403
         
-        q = User.query.get_or_404(_id,
-            description='User with _id=%d does not exists...' % _id)
+        q = User.query.get(_id)
+        if not q:
+            return flask.jsonify({'msg': 'User with _id=%d does not exists...' % _id}), 404
 
         q.active = 1
         db.sesion.commit()
@@ -174,8 +177,9 @@ def deactivate_user(_id):
         if login_user.username != 'admin':
             return flask.jsonify({'msg': 'only admin can activate/deactivate users'}), 403
         
-        q = User.query.get_or_404(_id,
-            description='User with _id=%d does not exists...' % _id)
+        q = User.query.get(_id)
+        if not q:
+            return flask.jsonify({'msg': 'User with _id=%d does not exists...' % _id}), 404
 
         # admin cannot be deactivated
         if q.username == 'admin':
